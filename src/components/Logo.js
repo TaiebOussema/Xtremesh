@@ -1,8 +1,9 @@
 const Logo = (props) => (
   <img
     alt="Logo"
-    src="/static/logo.svg"
+    src="/static/logoXmesh.svg"
     {...props}
+    style={{ width: '150px' }}
   />
 );
 

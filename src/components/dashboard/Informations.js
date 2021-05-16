@@ -1,5 +1,5 @@
-import moment from 'moment';
-import { v4 as uuid } from 'uuid';
+/* eslint-disable */
+import devices from 'src/__mocks__/devices';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import {
   Box,
@@ -18,72 +18,16 @@ import {
 } from '@material-ui/core';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 
-const orders = [
-  {
-    id: uuid(),
-    ref: 'CDD1049',
-    amount: 30.5,
-    customer: {
-      name: 'Ekaterina Tankova'
-    },
-    createdAt: 1555016400000,
-    status: 'pending'
-  },
-  {
-    id: uuid(),
-    ref: 'CDD1048',
-    amount: 25.1,
-    customer: {
-      name: 'Cao Yu'
-    },
-    createdAt: 1555016400000,
-    status: 'delivered'
-  },
-  {
-    id: uuid(),
-    ref: 'CDD1047',
-    amount: 10.99,
-    customer: {
-      name: 'Alexa Richardson'
-    },
-    createdAt: 1554930000000,
-    status: 'refunded'
-  },
-  {
-    id: uuid(),
-    ref: 'CDD1046',
-    amount: 96.43,
-    customer: {
-      name: 'Anje Keizer'
-    },
-    createdAt: 1554757200000,
-    status: 'pending'
-  },
-  {
-    id: uuid(),
-    ref: 'CDD1045',
-    amount: 32.54,
-    customer: {
-      name: 'Clarke Gillebert'
-    },
-    createdAt: 1554670800000,
-    status: 'delivered'
-  },
-  {
-    id: uuid(),
-    ref: 'CDD1044',
-    amount: 16.76,
-    customer: {
-      name: 'Adam Denisov'
-    },
-    createdAt: 1554670800000,
-    status: 'delivered'
-  }
-];
-
-const LatestOrders = (props) => (
-  <Card {...props}>
-    <CardHeader title="Latest Orders" />
+const Informations = (props) => (
+  <Card
+    style={{
+      borderStyle: 'solid',
+      borderWidth: '1px',
+      height: '100%'
+    }}
+    {...props}
+  >
+    <CardHeader title="Informations" />
     <Divider />
     <PerfectScrollbar>
       <Box sx={{ minWidth: 800 }}>
@@ -91,10 +35,10 @@ const LatestOrders = (props) => (
           <TableHead>
             <TableRow>
               <TableCell>
-                Order Ref
+                IP Address
               </TableCell>
               <TableCell>
-                Customer
+                Name
               </TableCell>
               <TableCell sortDirection="desc">
                 <Tooltip
@@ -105,7 +49,7 @@ const LatestOrders = (props) => (
                     active
                     direction="desc"
                   >
-                    Date
+                    MAC
                   </TableSortLabel>
                 </Tooltip>
               </TableCell>
@@ -115,24 +59,24 @@ const LatestOrders = (props) => (
             </TableRow>
           </TableHead>
           <TableBody>
-            {orders.map((order) => (
+            {devices.map((devices) => (
               <TableRow
                 hover
-                key={order.id}
+                key={devices.id}
               >
                 <TableCell>
-                  {order.ref}
+                  {devices.ip}
                 </TableCell>
                 <TableCell>
-                  {order.customer.name}
+                  {devices.name}
                 </TableCell>
                 <TableCell>
-                  {moment(order.createdAt).format('DD/MM/YYYY')}
+                  {devices.mac}
                 </TableCell>
                 <TableCell>
                   <Chip
                     color="primary"
-                    label={order.status}
+                    label="pending"
                     size="small"
                   />
                 </TableCell>
@@ -161,4 +105,4 @@ const LatestOrders = (props) => (
   </Card>
 );
 
-export default LatestOrders;
+export default Informations;

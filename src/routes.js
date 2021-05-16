@@ -2,10 +2,10 @@ import { Navigate } from 'react-router-dom';
 import DashboardLayout from 'src/components/DashboardLayout';
 import MainLayout from 'src/components/MainLayout';
 import Account from 'src/pages/Account';
-import CustomerList from 'src/pages/CustomerList';
+import DeviceList from 'src/pages/DeviceList';
 import Dashboard from 'src/pages/Dashboard';
 import Login from 'src/pages/Login';
-import NotFound from 'src/pages/NotFound';
+import Test from 'src/pages/Test';
 import ProductList from 'src/pages/ProductList';
 import Register from 'src/pages/Register';
 import Settings from 'src/pages/Settings';
@@ -16,7 +16,7 @@ const routes = [
     element: <DashboardLayout />,
     children: [
       { path: 'account', element: <Account /> },
-      { path: 'customers', element: <CustomerList /> },
+      { path: 'devices', element: <DeviceList /> },
       { path: 'dashboard', element: <Dashboard /> },
       { path: 'products', element: <ProductList /> },
       { path: 'settings', element: <Settings /> },
@@ -29,7 +29,7 @@ const routes = [
     children: [
       { path: 'login', element: <Login /> },
       { path: 'register', element: <Register /> },
-      { path: '404', element: <NotFound /> },
+      { path: 'test', element: <Test /> },
       { path: '/', element: <Navigate to="/app/dashboard" /> },
       { path: '*', element: <Navigate to="/404" /> }
     ]

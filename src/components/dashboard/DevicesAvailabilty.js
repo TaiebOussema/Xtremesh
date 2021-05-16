@@ -9,11 +9,11 @@ import {
   colors,
   useTheme
 } from '@material-ui/core';
-import LaptopMacIcon from '@material-ui/icons/LaptopMac';
-import PhoneIcon from '@material-ui/icons/Phone';
-import TabletIcon from '@material-ui/icons/Tablet';
+import SettingsApplicationsIcon from '@material-ui/icons/SettingsApplications';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 
-const TrafficByDevice = (props) => {
+const DevicesAvailability = (props) => {
   const theme = useTheme();
 
   const data = {
@@ -21,7 +21,7 @@ const TrafficByDevice = (props) => {
       {
         data: [63, 15, 22],
         backgroundColor: [
-          colors.indigo[500],
+          colors.green[500],
           colors.red[600],
           colors.orange[600]
         ],
@@ -30,7 +30,7 @@ const TrafficByDevice = (props) => {
         hoverBorderColor: colors.common.white
       }
     ],
-    labels: ['Desktop', 'Tablet', 'Mobile']
+    labels: ['UP', 'DOWN', 'MAINTENANCE']
   };
 
   const options = {
@@ -57,28 +57,35 @@ const TrafficByDevice = (props) => {
 
   const devices = [
     {
-      title: 'Desktop',
+      title: 'UP',
       value: 63,
-      icon: LaptopMacIcon,
-      color: colors.indigo[500]
+      icon: ArrowUpwardIcon,
+      color: colors.green[500]
     },
     {
-      title: 'Tablet',
+      title: 'DOWN',
       value: 15,
-      icon: TabletIcon,
+      icon: ArrowDownwardIcon,
       color: colors.red[600]
     },
     {
-      title: 'Mobile',
+      title: 'IN MAINTENANCE',
       value: 23,
-      icon: PhoneIcon,
+      icon: SettingsApplicationsIcon,
       color: colors.orange[600]
     }
   ];
 
   return (
-    <Card {...props}>
-      <CardHeader title="Traffic by Device" />
+    <Card
+      style={{
+        borderStyle: 'solid',
+        borderWidth: '1px',
+        height: '100%'
+      }}
+      {...props}
+    >
+      <CardHeader title="Devices Availability" />
       <Divider />
       <CardContent>
         <Box
@@ -134,4 +141,4 @@ const TrafficByDevice = (props) => {
   );
 };
 
-export default TrafficByDevice;
+export default DevicesAvailability;

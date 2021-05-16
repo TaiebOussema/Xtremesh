@@ -10,13 +10,14 @@ import AccountProfileDetails from 'src/components/account/AccountProfileDetails'
 const Account = () => (
   <>
     <Helmet>
-      <title>Account | Material Kit</title>
+      <title>Account</title>
     </Helmet>
     <Box
       sx={{
         backgroundColor: 'background.default',
         minHeight: '100%',
-        py: 3
+        py: 3,
+        zoom: '80%'
       }}
     >
       <Container maxWidth="lg">

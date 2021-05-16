@@ -22,13 +22,21 @@ const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
       elevation={0}
       {...rest}
     >
-      <Toolbar>
+      <Toolbar
+        style={{
+          backgroundColor: 'white',
+          borderBottomStyle: 'solid',
+          borderBottomColor: 'black',
+          borderBottomWidth: '1px',
+          paddingTop: '10px'
+        }}
+      >
         <RouterLink to="/">
           <Logo />
         </RouterLink>
         <Box sx={{ flexGrow: 1 }} />
         <Hidden lgDown>
-          <IconButton color="inherit">
+          <IconButton color="primary">
             <Badge
               badgeContent={notifications.length}
               color="primary"
@@ -37,7 +45,7 @@ const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
               <NotificationsIcon />
             </Badge>
           </IconButton>
-          <IconButton color="inherit">
+          <IconButton color="primary">
             <InputIcon />
           </IconButton>
         </Hidden>

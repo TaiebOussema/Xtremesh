@@ -4,25 +4,26 @@ import {
   Container,
   Grid
 } from '@material-ui/core';
-import Budget from 'src/components/dashboard//Budget';
-import LatestOrders from 'src/components/dashboard//LatestOrders';
+import NumberDevices from 'src/components/dashboard/NumberDevices';
+import Informations from 'src/components/dashboard/Informations';
 import LatestProducts from 'src/components/dashboard//LatestProducts';
-import Sales from 'src/components/dashboard//Sales';
-import TasksProgress from 'src/components/dashboard//TasksProgress';
-import TotalCustomers from 'src/components/dashboard//TotalCustomers';
-import TotalProfit from 'src/components/dashboard//TotalProfit';
-import TrafficByDevice from 'src/components/dashboard//TrafficByDevice';
+import LatestData from 'src/components/dashboard/LatestData';
+import SetTimeRange from 'src/components/dashboard/SetTimeRange';
+import Monitoring from 'src/components/dashboard/Monitoring';
+import UpTime from 'src/components/dashboard/UpTime';
+import DevicesAvailability from 'src/components/dashboard/DevicesAvailabilty';
 
 const Dashboard = () => (
   <>
     <Helmet>
-      <title>Dashboard | Material Kit</title>
+      <title>Dashboard</title>
     </Helmet>
     <Box
       sx={{
         backgroundColor: 'background.default',
         minHeight: '100%',
-        py: 3
+        py: 3,
+        zoom: '100%'
       }}
     >
       <Container maxWidth={false}>
@@ -37,7 +38,7 @@ const Dashboard = () => (
             xl={3}
             xs={12}
           >
-            <Budget />
+            <NumberDevices />
           </Grid>
           <Grid
             item
@@ -46,7 +47,7 @@ const Dashboard = () => (
             xl={3}
             xs={12}
           >
-            <TotalCustomers />
+            <Monitoring />
           </Grid>
           <Grid
             item
@@ -55,7 +56,7 @@ const Dashboard = () => (
             xl={3}
             xs={12}
           >
-            <TasksProgress />
+            <UpTime sx={{ height: '100%' }} />
           </Grid>
           <Grid
             item
@@ -64,17 +65,9 @@ const Dashboard = () => (
             xl={3}
             xs={12}
           >
-            <TotalProfit sx={{ height: '100%' }} />
+            <SetTimeRange />
           </Grid>
-          <Grid
-            item
-            lg={8}
-            md={12}
-            xl={9}
-            xs={12}
-          >
-            <Sales />
-          </Grid>
+
           <Grid
             item
             lg={4}
@@ -82,8 +75,19 @@ const Dashboard = () => (
             xl={3}
             xs={12}
           >
-            <TrafficByDevice sx={{ height: '100%' }} />
+            <DevicesAvailability sx={{ height: '100%' }} />
           </Grid>
+
+          <Grid
+            item
+            lg={8}
+            md={12}
+            xl={9}
+            xs={12}
+          >
+            <LatestData />
+          </Grid>
+
           <Grid
             item
             lg={4}
@@ -100,7 +104,7 @@ const Dashboard = () => (
             xl={9}
             xs={12}
           >
-            <LatestOrders />
+            <Informations />
           </Grid>
         </Grid>
       </Container>

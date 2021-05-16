@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import {
-  Avatar,
   Box,
   Card,
   Checkbox,
@@ -15,43 +13,42 @@ import {
   TableRow,
   Typography
 } from '@material-ui/core';
-import getInitials from 'src/utils/getInitials';
 
-const CustomerListResults = ({ customers, ...rest }) => {
-  const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
+const DeviceListResults = ({ devices, ...rest }) => {
+  const [selectedDeviceIds, setSelectedDeviceIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
 
   const handleSelectAll = (event) => {
-    let newSelectedCustomerIds;
+    let newSelectedDeviceIds;
 
     if (event.target.checked) {
-      newSelectedCustomerIds = customers.map((customer) => customer.id);
+      newSelectedDeviceIds = devices.map((device) => device.id);
     } else {
-      newSelectedCustomerIds = [];
+      newSelectedDeviceIds = [];
     }
 
-    setSelectedCustomerIds(newSelectedCustomerIds);
+    setSelectedDeviceIds(newSelectedDeviceIds);
   };
 
   const handleSelectOne = (event, id) => {
-    const selectedIndex = selectedCustomerIds.indexOf(id);
-    let newSelectedCustomerIds = [];
+    const selectedIndex = selectedDeviceIds.indexOf(id);
+    let newSelectedDeviceIds = [];
 
     if (selectedIndex === -1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds, id);
+      newSelectedDeviceIds = newSelectedDeviceIds.concat(selectedDeviceIds, id);
     } else if (selectedIndex === 0) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds.slice(1));
-    } else if (selectedIndex === selectedCustomerIds.length - 1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(selectedCustomerIds.slice(0, -1));
+      newSelectedDeviceIds = newSelectedDeviceIds.concat(selectedDeviceIds.slice(1));
+    } else if (selectedIndex === selectedDeviceIds.length - 1) {
+      newSelectedDeviceIds = newSelectedDeviceIds.concat(selectedDeviceIds.slice(0, -1));
     } else if (selectedIndex > 0) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(
-        selectedCustomerIds.slice(0, selectedIndex),
-        selectedCustomerIds.slice(selectedIndex + 1)
+      newSelectedDeviceIds = newSelectedDeviceIds.concat(
+        selectedDeviceIds.slice(0, selectedIndex),
+        selectedDeviceIds.slice(selectedIndex + 1)
       );
     }
 
-    setSelectedCustomerIds(newSelectedCustomerIds);
+    setSelectedDeviceIds(newSelectedDeviceIds);
   };
 
   const handleLimitChange = (event) => {
@@ -71,43 +68,49 @@ const CustomerListResults = ({ customers, ...rest }) => {
               <TableRow>
                 <TableCell padding="checkbox">
                   <Checkbox
-                    checked={selectedCustomerIds.length === customers.length}
+                    checked={selectedDeviceIds.length === devices.length}
                     color="primary"
                     indeterminate={
-                      selectedCustomerIds.length > 0
-                      && selectedCustomerIds.length < customers.length
+                      selectedDeviceIds.length > 0
+                      && selectedDeviceIds.length < devices.length
                     }
                     onChange={handleSelectAll}
                   />
                 </TableCell>
                 <TableCell>
-                  Name
+                  Device name
                 </TableCell>
                 <TableCell>
-                  Email
+                  Ip address
                 </TableCell>
                 <TableCell>
-                  Location
+                  Mac address
                 </TableCell>
                 <TableCell>
-                  Phone
+                  Model
                 </TableCell>
                 <TableCell>
-                  Registration date
+                  BitStream
+                </TableCell>
+                <TableCell>
+                  Firmware
+                </TableCell>
+                <TableCell>
+                  Serial number
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {customers.slice(0, limit).map((customer) => (
+              {devices.slice(0, limit).map((device) => (
                 <TableRow
                   hover
-                  key={customer.id}
-                  selected={selectedCustomerIds.indexOf(customer.id) !== -1}
+                  key={device.id}
+                  selected={selectedDeviceIds.indexOf(device.id) !== -1}
                 >
                   <TableCell padding="checkbox">
                     <Checkbox
-                      checked={selectedCustomerIds.indexOf(customer.id) !== -1}
-                      onChange={(event) => handleSelectOne(event, customer.id)}
+                      checked={selectedDeviceIds.indexOf(device.id) !== -1}
+                      onChange={(event) => handleSelectOne(event, device.id)}
                       value="true"
                     />
                   </TableCell>
@@ -118,31 +121,31 @@ const CustomerListResults = ({ customers, ...rest }) => {
                         display: 'flex'
                       }}
                     >
-                      <Avatar
-                        src={customer.avatarUrl}
-                        sx={{ mr: 2 }}
-                      >
-                        {getInitials(customer.name)}
-                      </Avatar>
                       <Typography
                         color="textPrimary"
                         variant="body1"
                       >
-                        {customer.name}
+                        {device.name}
                       </Typography>
                     </Box>
                   </TableCell>
                   <TableCell>
-                    {customer.email}
+                    {device.ip}
                   </TableCell>
                   <TableCell>
-                    {`${customer.address.city}, ${customer.address.state}, ${customer.address.country}`}
+                    {device.mac}
                   </TableCell>
                   <TableCell>
-                    {customer.phone}
+                    {device.model}
                   </TableCell>
                   <TableCell>
-                    {moment(customer.createdAt).format('DD/MM/YYYY')}
+                    {device.bitStream}
+                  </TableCell>
+                  <TableCell>
+                    {device.firmware}
+                  </TableCell>
+                  <TableCell>
+                    {device.serialNumber}
                   </TableCell>
                 </TableRow>
               ))}
@@ -152,19 +155,19 @@ const CustomerListResults = ({ customers, ...rest }) => {
       </PerfectScrollbar>
       <TablePagination
         component="div"
-        count={customers.length}
+        count={devices.length}
         onPageChange={handlePageChange}
         onRowsPerPageChange={handleLimitChange}
         page={page}
         rowsPerPage={limit}
-        rowsPerPageOptions={[5, 10, 25]}
+        rowsPerPageOptions={[5, 10, 25, 50, 100]}
       />
     </Card>
   );
 };
 
-CustomerListResults.propTypes = {
-  customers: PropTypes.array.isRequired
+DeviceListResults.propTypes = {
+  devices: PropTypes.array.isRequired
 };
 
-export default CustomerListResults;
+export default DeviceListResults;

@@ -31,7 +31,7 @@ const NavItem = ({
       <Button
         component={RouterLink}
         sx={{
-          color: 'text.secondary',
+          color: 'text.primary',
           fontWeight: 'medium',
           justifyContent: 'flex-start',
           letterSpacing: 0,
@@ -39,7 +39,7 @@ const NavItem = ({
           textTransform: 'none',
           width: '100%',
           ...(active && {
-            color: 'primary.main'
+            color: 'secondary.main'
           }),
           '& svg': {
             mr: 1

@@ -6,13 +6,14 @@ import SettingsPassword from 'src/components/settings/SettingsPassword';
 const SettingsView = () => (
   <>
     <Helmet>
-      <title>Settings | Material Kit</title>
+      <title>Settings</title>
     </Helmet>
     <Box
       sx={{
         backgroundColor: 'background.default',
         minHeight: '100%',
-        py: 3
+        py: 3,
+        zoom: '80%'
       }}
     >
       <Container maxWidth="lg">

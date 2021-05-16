@@ -1,10 +1,10 @@
-import { useEffect } from 'react';
+/* eslint-disable */
+import { useEffect, useState } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
   Avatar,
   Box,
-  Button,
   Divider,
   Drawer,
   Hidden,
@@ -13,32 +13,33 @@ import {
 } from '@material-ui/core';
 import {
   AlertCircle as AlertCircleIcon,
-  BarChart as BarChartIcon,
+  Activity as ActivityIcon,
   Lock as LockIcon,
   Settings as SettingsIcon,
   ShoppingBag as ShoppingBagIcon,
-  User as UserIcon,
+  Server as ServerIcon,
   UserPlus as UserPlusIcon,
-  Users as UsersIcon
+  User as UserIcon,
+  AlignJustify as AlignJustifyIcon
 } from 'react-feather';
 import NavItem from './NavItem';
 
 const user = {
-  avatar: '/static/images/avatars/avatar_6.png',
-  jobTitle: 'Senior Developer',
-  name: 'Katarina Smith'
+  avatar: '/static/images/avatars/admin_lock.png',
+  jobTitle: 'System Administrator',
+  name: 'ADMIN'
 };
 
 const items = [
   {
     href: '/app/dashboard',
-    icon: BarChartIcon,
+    icon: ActivityIcon,
     title: 'Dashboard'
   },
   {
-    href: '/app/customers',
-    icon: UsersIcon,
-    title: 'Customers'
+    href: '/app/devices',
+    icon: ServerIcon,
+    title: 'Devices'
   },
   {
     href: '/app/products',
@@ -56,24 +57,16 @@ const items = [
     title: 'Settings'
   },
   {
-    href: '/login',
-    icon: LockIcon,
-    title: 'Login'
-  },
-  {
-    href: '/register',
-    icon: UserPlusIcon,
-    title: 'Register'
-  },
-  {
-    href: '/404',
+    href: '/test',
     icon: AlertCircleIcon,
-    title: 'Error'
+    title: 'Test'
   }
 ];
 
 const DashboardSidebar = ({ onMobileClose, openMobile }) => {
   const location = useLocation();
+  const sideBarCollapsed =  localStorage.getItem('sidebar-collapsed');
+  const [isExpanded, setIsExpanded] = useState(sideBarCollapsed ? false : true );
 
   useEffect(() => {
     if (openMobile && onMobileClose) {
@@ -81,12 +74,29 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
     }
   }, [location.pathname]);
 
+  const handleToggler = () => {
+    if (isExpanded) {
+      setIsExpanded(false);
+      localStorage.setItem('sidebar-collapsed', true);
+      return;
+    }
+    setIsExpanded(true);
+    localStorage.removeItem('sidebar-collapsed');
+  };
+
   const content = (
+    
     <Box
+      style={{
+        backgroundColor: 'white',
+        borderRightStyle: 'solid',
+        borderRightColor: 'black',
+        borderRightWidth: '1px',
+      }}
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        height: '100%'
+        height: '100%',
       }}
     >
       <Box
@@ -94,16 +104,27 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
           alignItems: 'center',
           display: 'flex',
           flexDirection: 'column',
-          p: 2
+          p: 0
         }}
       >
+        <AlignJustifyIcon style={{
+          marginBottom: 20,
+          marginTop: 20,
+          width: '1.50em',
+          height: '1.50em',
+          cursor: 'pointer',
+          userSelect: 'none'
+        }}
+        onClick={handleToggler}
+        />
+        <Divider/>
         <Avatar
           component={RouterLink}
           src={user.avatar}
           sx={{
             cursor: 'pointer',
-            width: 64,
-            height: 64
+            width: 45,
+            height: 45
           }}
           to="/app/account"
         />
@@ -120,11 +141,19 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
           {user.jobTitle}
         </Typography>
       </Box>
-      <Divider />
-      <Box sx={{ p: 2 }}>
+      <Box
+        sx={{
+          p: 3,
+          backgroundColor: 'white',
+        }}
+      >
         <List>
           {items.map((item) => (
             <NavItem
+              sx={{
+                backgroundColor: 'white',
+
+              }}
               href={item.href}
               key={item.title}
               title={item.title}
@@ -133,46 +162,67 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
           ))}
         </List>
       </Box>
-      <Box sx={{ flexGrow: 1 }} />
+    </Box>
+  );
+
+  const contentCollapsed = (
+    
+    <Box
+      style={{
+        backgroundColor: 'white',
+        borderRightStyle: 'solid',
+        borderRightColor: 'black',
+        borderRightWidth: '1px',
+      }}
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100%',
+      }}
+    >
       <Box
         sx={{
-          backgroundColor: 'background.default',
-          m: 2,
+          alignItems: 'center',
+          display: 'flex',
+          flexDirection: 'column',
           p: 2
         }}
       >
-        <Typography
-          align="center"
-          gutterBottom
-          variant="h4"
-        >
-          Need more?
-        </Typography>
-        <Typography
-          align="center"
-          variant="body2"
-        >
-          Upgrade to PRO version and access 20 more screens
-        </Typography>
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            pt: 2
-          }}
-        >
-          <Button
-            color="primary"
-            component="a"
-            href="https://react-material-kit.devias.io"
-            variant="contained"
-          >
-            See PRO version
-          </Button>
-        </Box>
+        <AlignJustifyIcon style={{
+          marginLeft: '0',
+          width: '1.50em',
+          height: '1.50em',
+          cursor: 'pointer',
+          userSelect: 'none'
+        }}
+        onClick={handleToggler}
+        />
+      </Box>
+      <Divider />
+      <Box
+        sx={{
+          p: 3,
+          backgroundColor: 'white',
+        }}
+      >
+        <List>
+          {items.map((item) => (
+            <NavItem
+              sx={{
+                backgroundColor: 'white',
+
+              }}
+              href={item.href}
+              key={item.title}
+              icon={item.icon}
+            />
+          ))}
+        </List>
       </Box>
     </Box>
   );
+
+  
 
   return (
     <>
@@ -191,22 +241,41 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
           {content}
         </Drawer>
       </Hidden>
+
       <Hidden lgDown>
         <Drawer
           anchor="left"
-          open
+          open={isExpanded === true}
           variant="persistent"
           PaperProps={{
             sx: {
-              width: 256,
+              width: 180,
               top: 64,
-              height: 'calc(100% - 64px)'
+              height: 'calc(100% - 64px)',
             }
           }}
         >
           {content}
         </Drawer>
       </Hidden>
+
+      <Hidden lgDown>
+        <Drawer
+          anchor="left"
+          open={isExpanded === false}
+          variant="persistent"
+          PaperProps={{
+            sx: {
+              width: 90,
+              top: 64,
+              height: 'calc(100% - 64px)'
+            }
+          }}
+        >
+          {contentCollapsed}
+        </Drawer>
+      </Hidden>
+
     </>
   );
 };

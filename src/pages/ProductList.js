@@ -12,13 +12,14 @@ import products from 'src/__mocks__/products';
 const ProductList = () => (
   <>
     <Helmet>
-      <title>Products | Material Kit</title>
+      <title>Products</title>
     </Helmet>
     <Box
       sx={{
         backgroundColor: 'background.default',
         minHeight: '100%',
-        py: 3
+        py: 3,
+        zoom: '80%'
       }}
     >
       <Container maxWidth={false}>

@@ -1,5 +1,4 @@
 import {
-  Avatar,
   Box,
   Card,
   CardContent,
@@ -8,10 +7,16 @@ import {
 } from '@material-ui/core';
 import { green } from '@material-ui/core/colors';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
-import PeopleIcon from '@material-ui/icons/PeopleOutlined';
 
-const TotalCustomers = (props) => (
-  <Card {...props}>
+const Monitoring = (props) => (
+  <Card
+    sx={{
+      borderStyle: 'solid',
+      borderWidth: '1px',
+      height: '100%'
+    }}
+    {...props}
+  >
     <CardContent>
       <Grid
         container
@@ -22,27 +27,16 @@ const TotalCustomers = (props) => (
           <Typography
             color="textSecondary"
             gutterBottom
-            variant="h6"
+            variant="h4"
           >
-            TOTAL CUSTOMERS
+            MONITORING
           </Typography>
           <Typography
-            color="textPrimary"
-            variant="h3"
+            color="green"
+            variant="h2"
           >
-            1,600
+            OK
           </Typography>
-        </Grid>
-        <Grid item>
-          <Avatar
-            sx={{
-              backgroundColor: green[600],
-              height: 56,
-              width: 56
-            }}
-          >
-            <PeopleIcon />
-          </Avatar>
         </Grid>
       </Grid>
       <Box
@@ -73,4 +67,4 @@ const TotalCustomers = (props) => (
   </Card>
 );
 
-export default TotalCustomers;
+export default Monitoring;
